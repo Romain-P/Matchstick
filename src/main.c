@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Nov 24 11:14:29 2016 romain pillot
-** Last update Mon Feb 27 00:50:52 2017 romain pillot
+** Last update Mon Feb 27 01:25:18 2017 romain pillot
 */
 
 #include "util.h"
@@ -29,6 +29,17 @@ static t_map	*init_map(int lines, int matches)
   return (map);
 }
 
+static void	free_all(t_map *map)
+{
+  int	i;
+
+  i = -1;
+  while (++i < map->lines)
+    free(map->get[i]);
+  free(map->get);
+  free(map);
+}
+
 int	main(int ac, char **args)
 {
   int	lines;
@@ -44,6 +55,6 @@ int	main(int ac, char **args)
   display_map(map);
   player_turn(map);
   status = map->status;
-  free(map);
+  free_all(map);
   return (status);
 }
