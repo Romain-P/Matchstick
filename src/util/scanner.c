@@ -5,11 +5,12 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Tue Feb 21 11:35:52 2017 romain pillot
-** Last update Tue Feb 21 12:47:03 2017 romain pillot
+** Last update Mon Feb 27 00:56:32 2017 romain pillot
 */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 static char	*app(char *str, char c)
 {
@@ -50,8 +51,8 @@ char	*scan_line()
 	}
       if (buffer[0] == '\n')
 	return (str);
-      else if (!(str = app(str, buffer[0])))
-	return (NULL);
+      else if (buffer[0] == EOF || !(str = app(str, buffer[0])))
+	break;
     }
   if (str)
     free(str);

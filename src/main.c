@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Thu Nov 24 11:14:29 2016 romain pillot
-** Last update Mon Feb 27 00:12:56 2017 romain pillot
+** Last update Mon Feb 27 00:50:52 2017 romain pillot
 */
 
 #include "util.h"
@@ -25,6 +25,7 @@ static t_map	*init_map(int lines, int matches)
     return (NULL);
   map->lines = lines;
   map->max_matches = matches;
+  map->status = 0;
   return (map);
 }
 
