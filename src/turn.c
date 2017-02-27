@@ -5,7 +5,7 @@
 ** Login   <romain.pillot@epitech.net>
 ** 
 ** Started on  Sun Feb 26 21:50:01 2017 romain pillot
-** Last update Mon Feb 27 00:30:08 2017 romain pillot
+** Last update Mon Feb 27 01:11:23 2017 romain pillot
 */
 
 #include "map.h"
@@ -18,7 +18,8 @@ static bool	scan_matches(t_map *map, int *matches, int line)
   char		*scan;
 
   display("Matches: ");
-  scan = scan_line();
+  if (!(scan = scan_line()))
+    return ((map->status = -1));
   *matches = getnbr(scan);
   free(scan);
   if (*matches == 0)
@@ -43,7 +44,8 @@ static bool	scan_lines(t_map *map, int *line)
   char		*scan;
 
   display("Line: ");
-  scan = scan_line();
+  if (!(scan = scan_line()))
+    return (map->status = -1);
   *line = getnbr(scan);
   free(scan);
   if (*line <= 0 || *line > map->lines)
@@ -86,7 +88,9 @@ void	player_turn(t_map *map)
 
   display("\nYour turn :\n");
   while (!scan_lines(map, &lines) ||
-	 !scan_matches(map, &matches, lines));
+	 (!map->status && !scan_matches(map, &matches, lines)));
+  if (map->status == -1 && !(map->status = 0))
+    return ;
   remove_matches(map, lines, matches, true);
   display_map(map);
   if (!empty_map(map))
